@@ -1,17 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { Card, CardHeader, CardDescription, CardContent, CardFooter, CardTitle } from '../ui/card';
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from '../ui/field';
+import { Card, CardHeader, CardContent, CardTitle } from '../ui/card';
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from '../ui/field';
 import { Input } from '../ui/input';
+import { useActionState } from 'react';
+import { registerAction } from '@/app/_actions/auth';
 
 const RegisterForm = () => {
+  const [state, formAction, isPending] = useActionState(registerAction, null);
   return (
     <>
       <Card className="bg-app-card border-app-border mx-auto w-full max-w-md border p-6 text-white">
@@ -21,7 +19,7 @@ const RegisterForm = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form action="" className="space-y-4">
+          <form action={formAction} className="space-y-4">
             <FieldSet>
               <FieldDescription className="text-center text-white">
                 Preencha os dados para criar sua conta
@@ -32,6 +30,7 @@ const RegisterForm = () => {
                   <Input
                     type="text"
                     id="name"
+                    name="name"
                     placeholder="Digite seu nome"
                     required
                     minLength={3}
@@ -43,6 +42,7 @@ const RegisterForm = () => {
                   <Input
                     type="text"
                     id="email"
+                    name="email"
                     placeholder="Digite seu email"
                     required
                     minLength={3}
@@ -54,6 +54,7 @@ const RegisterForm = () => {
                   <Input
                     type="password"
                     id="password"
+                    name="password"
                     placeholder="Digite sua senha"
                     required
                     minLength={3}
@@ -63,10 +64,11 @@ const RegisterForm = () => {
               </FieldGroup>
             </FieldSet>
             <Button className="w-full p-4" type="submit">
-              Criar conta
+              {/* Criar conta */}
+              {isPending ? 'Criando conta...' : 'Criar conta'}
             </Button>
           </form>
-          <div className='mt-4 w-full text-center'>
+          <div className="mt-4 w-full text-center">
             <span className="font-extralight">Já tem uma conta?</span>{' '}
             <span>
               <Link href={'/login'}>Faça login</Link>
