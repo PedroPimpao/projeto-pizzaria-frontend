@@ -5,11 +5,18 @@ import { Button } from '../ui/button';
 import { Card, CardHeader, CardContent, CardTitle } from '../ui/card';
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from '../ui/field';
 import { Input } from '../ui/input';
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { registerAction } from '@/app/_actions/auth';
+import { redirect, useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
   const [state, formAction, isPending] = useActionState(registerAction, null);
+  const router = useRouter()
+  useEffect(() => {
+    if(state?.success && state?.redirectTo){
+      router.replace(state.redirectTo)
+    }
+  }, [state, router])
   return (
     <>
       <Card className="bg-app-card border-app-border mx-auto w-full max-w-md border p-6 text-white">
@@ -64,7 +71,6 @@ const RegisterForm = () => {
               </FieldGroup>
             </FieldSet>
             <Button className="w-full p-4" type="submit">
-              {/* Criar conta */}
               {isPending ? 'Criando conta...' : 'Criar conta'}
             </Button>
           </form>

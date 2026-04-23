@@ -30,7 +30,7 @@ export const apiClient = async <Type>(
     headers['Content-Type'] = 'application/json';
   }
 
-  const response = await fetch(`${API_URL}/${endpoint}`, {
+  const response = await fetch(`${API_URL}${endpoint}`, {
     ...fetchOptions,
     headers,
   });
@@ -40,6 +40,10 @@ export const apiClient = async <Type>(
       error: `Erro HTTP: ${response.status}`,
     }));
     throw new Error(error.error || 'Erro na requisição');
+  }
+
+  if(response.ok){
+    console.log('Usuário cadastrado com sucesso')
   }
   return response.json();
 };
