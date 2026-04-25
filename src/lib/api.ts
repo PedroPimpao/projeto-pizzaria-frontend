@@ -43,7 +43,7 @@ export const apiClient = async <Type>(
   }
 
   if(response.ok){
-    console.log('Usuário cadastrado com sucesso')
+    console.log('Sucesso!')
   }
   return response.json();
 };

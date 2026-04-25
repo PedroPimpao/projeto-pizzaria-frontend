@@ -6,11 +6,11 @@ import { Card, CardHeader, CardContent, CardTitle } from '../ui/card';
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from '../ui/field';
 import { Input } from '../ui/input';
 import { useActionState, useEffect } from 'react';
-import { registerAction } from '@/app/_actions/auth';
+import { loginAction } from '@/app/_actions/auth';
 import { useRouter } from 'next/navigation';
 
-const RegisterForm = () => {
-  const [state, formAction, isPending] = useActionState(registerAction, null);
+const LoginForm = () => {
+  const [state, formAction, isPending] = useActionState(loginAction, null);
   const router = useRouter();
   useEffect(() => {
     if (state?.success && state?.redirectTo) {
@@ -29,21 +29,9 @@ const RegisterForm = () => {
           <form action={formAction} className="space-y-4">
             <FieldSet>
               <FieldDescription className="text-center text-white">
-                Preencha os dados para criar sua conta
+                Preencha os dados para entrar na sua conta
               </FieldDescription>
               <FieldGroup>
-                <Field>
-                  <FieldLabel>Nome</FieldLabel>
-                  <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Digite seu nome"
-                    required
-                    minLength={3}
-                    className="bg-app-card border-app-border border text-white"
-                  />
-                </Field>
                 <Field>
                   <FieldLabel>Email</FieldLabel>
                   <Input
@@ -71,13 +59,19 @@ const RegisterForm = () => {
               </FieldGroup>
             </FieldSet>
             <Button className="w-full p-4" type="submit">
-              {isPending ? 'Criando conta...' : 'Criar conta'}
+              {isPending ? 'Entrando...' : 'Entrar'}
             </Button>
+
+            {state?.error && (
+                <div className='text-sm text-red-400'>
+                    {state.error}
+                </div>
+            )}
           </form>
           <div className="mt-4 w-full text-center">
-            <span className="font-extralight">Já tem uma conta?</span>{' '}
+            <span className="font-extralight">Não tem uma conta?</span>{' '}
             <span>
-              <Link href={'/login'}>Faça login</Link>
+              <Link href={'/register'}>Crie a sua</Link>
             </span>
           </div>
         </CardContent>
@@ -86,4 +80,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

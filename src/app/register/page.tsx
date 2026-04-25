@@ -1,5 +1,4 @@
 import RegisterForm from '@/components/forms/register-form';
-import { Button } from '@/components/ui/button';
 
 const Register = () => {
   return (

@@ -1,10 +1,13 @@
-import { Button } from '@/components/ui/button';
+import LoginForm from '@/components/forms/login-form';
 
 const Login = () => {
   return (
     <>
-      <h1>Login</h1>
-      <Button variant={'default'}>Teste</Button>
+      <div className="bg-app-background flex min-h-screen items-center justify-center px-4 py-8">
+        <div className="w-full">
+          <LoginForm />
+        </div>
+      </div>
     </>
   );
 };
