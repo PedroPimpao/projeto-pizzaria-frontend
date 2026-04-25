@@ -13,10 +13,10 @@ interface FetchOptions extends RequestInit {
   };
 }
 
-export const apiClient = async <Type>(
+export const apiClient = async <T>(
   endpoint: string,
   options: FetchOptions = {}
-): Promise<Type> => {
+): Promise<T> => {
   const { token, ...fetchOptions } = options;
   const headers: Record<string, string> = {
     ...(fetchOptions.headers as Record<string, string>),
