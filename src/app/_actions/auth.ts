@@ -1,6 +1,7 @@
 'use server';
 
 import { apiClient } from '@/lib/api';
+import { setToken } from '@/lib/auth';
 import { AuthResponse, User } from '@/lib/types';
 
 type State = {
@@ -42,6 +43,8 @@ export const loginAction = async (prevState: State, formData: FormData) => {
       method: 'POST',
       body: JSON.stringify(data),
     });
+
+    await setToken(response.token)
     console.log(response);
     return { success: true, error: '', redirectTo: '/dashboard' };
   } catch (error) {
