@@ -8,6 +8,7 @@ import { Input } from '../ui/input';
 import { useActionState, useEffect } from 'react';
 import { loginAction } from '@/app/_actions/auth';
 import { useRouter } from 'next/navigation';
+import Logo from '../logo';
 
 const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(loginAction, null);
@@ -21,9 +22,10 @@ const LoginForm = () => {
     <>
       <Card className="bg-app-card border-app-border mx-auto w-full max-w-md border p-6 text-white">
         <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold sm:text-4xl">
+          {/* <CardTitle className="text-center text-3xl font-bold sm:text-4xl">
             Sujeito<span className="text-brand-primary">Pizza</span>
-          </CardTitle>
+          </CardTitle> */}
+          <Logo/>
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">
