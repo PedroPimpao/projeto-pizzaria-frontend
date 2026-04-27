@@ -1,13 +1,9 @@
-import { getUser } from "@/lib/auth";
+import { getUser, requiredAdmin } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 const Dashboard = async () => {
-  const user = await getUser();
-    if (!user) {
-      redirect('/login');
-    }
   return (
-    <div className="text-white">
+    <div>
       <h1>Dashboard</h1>
     </div>
   );
