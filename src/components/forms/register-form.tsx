@@ -22,10 +22,7 @@ const RegisterForm = () => {
     <>
       <Card className="bg-app-card border-app-border mx-auto w-full max-w-md border p-6 text-white">
         <CardHeader>
-          {/* <CardTitle className="text-center text-3xl font-bold sm:text-4xl">
-            Sujeito<span className="text-brand-primary">Pizza</span>
-          </CardTitle> */}
-          <Logo/>
+          <Logo textSize="text-3xl" textSizeSm="text-4xl" />
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">

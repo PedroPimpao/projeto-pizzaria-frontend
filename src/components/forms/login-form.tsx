@@ -22,10 +22,7 @@ const LoginForm = () => {
     <>
       <Card className="bg-app-card border-app-border mx-auto w-full max-w-md border p-6 text-white">
         <CardHeader>
-          {/* <CardTitle className="text-center text-3xl font-bold sm:text-4xl">
-            Sujeito<span className="text-brand-primary">Pizza</span>
-          </CardTitle> */}
-          <Logo/>
+          <Logo textSize="text-3xl" textSizeSm="text-4xl" />
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">
@@ -64,11 +61,7 @@ const LoginForm = () => {
               {isPending ? 'Entrando...' : 'Entrar'}
             </Button>
 
-            {state?.error && (
-                <div className='text-sm text-red-400'>
-                    {state.error}
-                </div>
-            )}
+            {state?.error && <div className="text-sm text-red-400">{state.error}</div>}
           </form>
           <div className="mt-4 w-full text-center">
             <span className="font-extralight">Não tem uma conta?</span>{' '}

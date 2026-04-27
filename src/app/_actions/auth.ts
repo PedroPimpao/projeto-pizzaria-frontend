@@ -1,8 +1,9 @@
 'use server';
 
 import { apiClient } from '@/lib/api';
-import { setToken } from '@/lib/auth';
+import { removeToken, setToken } from '@/lib/auth';
 import { AuthResponse, User } from '@/lib/types';
+import { redirect } from 'next/navigation';
 
 type State = {
   success: boolean;
@@ -55,3 +56,8 @@ export const loginAction = async (prevState: State, formData: FormData) => {
     return { success: false, error: 'Erro ao fazer login' };
   }
 };
+
+export const logoutAction = async () => {
+  await removeToken()
+  redirect('/login')
+}

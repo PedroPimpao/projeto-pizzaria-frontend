@@ -5,7 +5,7 @@ import Link from "next/link";
 const NotFound = () => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-3 text-white">
-      <Logo />
+      <Logo textSize="text-3xl" textSizeSm="text-4xl"/>
       <h1 className="text-2xl font-bold">[404] Página não encontrada</h1>
       <Link href={'/'}>
         <Button className="cursor-pointer"> Voltar para Home </Button>
