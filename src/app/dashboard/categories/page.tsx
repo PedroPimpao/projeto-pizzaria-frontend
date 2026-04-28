@@ -1,3 +1,4 @@
+import CategoryForm from '@/components/dashboard/category-form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiClient } from '@/lib/api';
@@ -18,7 +19,8 @@ const Categories = async () => {
           <h1 className="text-2xl font-bold sm:text-3xl">Categorias</h1>
           <p className="mt-1 text-sm sm:text-base">Organize suas categorias</p>
         </div>
-        <Button>Teste</Button>
+        {/* <Button>Teste</Button> */}
+        <CategoryForm/>
       </div>
       {categories.length !== 0 && (
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
