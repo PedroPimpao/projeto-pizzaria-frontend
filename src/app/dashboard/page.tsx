@@ -1,12 +1,9 @@
-import { getUser, requiredAdmin } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { Orders } from '@/components/dashboard/orders';
+import { getToken } from '@/lib/auth';
 
 const Dashboard = async () => {
-  return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
-  );
+  const token = await getToken()
+  return <Orders token={token!} />;
 };
 
 export default Dashboard;

@@ -37,3 +37,26 @@ export interface Product {
     name: string;
   };
 }
+
+export interface Items {
+  id: string
+  amount: number
+  product: {
+    id: string
+    name: string
+    price: number
+    description: string
+    banner: string
+  }
+}
+
+export interface Order{
+  id: string
+  table: string
+  name?: string
+  status: boolean
+  draft: boolean
+  createdAt: string
+  updatedAt: string
+  items?: Items[]
+}
