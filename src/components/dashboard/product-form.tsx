@@ -134,7 +134,6 @@ export function ProductForm({ categories }: ProductFormProps) {
         <DialogHeader>
           <DialogTitle>Criar novo produto</DialogTitle>
           <DialogDescription>Criando novo produto...</DialogDescription>
-          {/* <Button variant={'destructive'}>teste</Button> */}
         </DialogHeader>
 
         <form className="space-y-4" onSubmit={handleCreateProduct}>

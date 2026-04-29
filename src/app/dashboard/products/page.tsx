@@ -5,6 +5,8 @@ import { Category, Product } from '@/lib/types';
 import { Package } from 'lucide-react';
 import { ProductForm } from '@/components/dashboard/product-form';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import DeleteButton from '@/components/dashboard/delete-button';
 
 export default async function Products() {
   const token = await getToken();
@@ -55,9 +57,12 @@ export default async function Products() {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base md:text-lg">
-                  <Package className="h-5 w-5" />
-                  <span>{product.name}</span>
+                <CardTitle className="flex flex-row items-center justify-between gap-2 text-base md:text-lg">
+                  <div className="flex flex-row items-center gap-2">
+                    <Package className="h-5 w-5" />
+                    <span>{product.name}</span>
+                  </div>
+                  <DeleteButton productId={product.id} />
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
