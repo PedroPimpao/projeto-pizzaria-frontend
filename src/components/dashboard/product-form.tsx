@@ -38,12 +38,35 @@ export function ProductForm({ categories }: ProductFormProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  async function handleCreateProduct(e: React.FormEvent<HTMLFormElement>) {
+  const convertBRLtoCents = (value: string) => {
+    const cleanValue = value
+      .replace(/[R$\s]/g, '')
+      .replace(/\./g, '')
+      .replace(',', '.');
+    const reais = parseFloat(cleanValue);
+    return Math.round(reais * 100);
+  };
+  async function handleCreateProduct(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
 
-    const formData = new FormData(e.currentTarget);
+    if (!imageFile) {
+      setIsLoading(false);
+      return;
+    }
+
+    const formData = new FormData();
+    const formElement = e.currentTarget;
+
+    const name = (formElement.elements.namedItem('name') as HTMLInputElement).value;
+    const description = (formElement.elements.namedItem('description') as HTMLInputElement).value;
+    const priceInCents = convertBRLtoCents(priceValue);
+
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', priceInCents.toString());
     formData.append('category_id', selectedCategory);
+    formData.append('file', imageFile);
 
     const result = await createProductAction(formData);
 
@@ -111,7 +134,7 @@ export function ProductForm({ categories }: ProductFormProps) {
         <DialogHeader>
           <DialogTitle>Criar novo produto</DialogTitle>
           <DialogDescription>Criando novo produto...</DialogDescription>
-          <Button variant={'destructive'}>teste</Button>
+          {/* <Button variant={'destructive'}>teste</Button> */}
         </DialogHeader>
 
         <form className="space-y-4" onSubmit={handleCreateProduct}>
@@ -195,7 +218,7 @@ export function ProductForm({ categories }: ProductFormProps) {
                 </Button>
               </div>
             ) : (
-              <div className="border-e-app-border flex flex-col items-center justify-center rounded-md border-2 border-dashed p-8">
+              <div className="border-app-border flex flex-col items-center justify-center rounded-md border-2 border-dashed p-8">
                 <Upload className="mb-2 h-8 w-8 text-gray-400" />
                 <Label htmlFor="file">Clique para selecionar uma imagem</Label>
                 <Input
