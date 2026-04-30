@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { formatPriceToBRL } from '@/lib/format';
+import { OrderModal } from './order-modal';
 
 interface OrdersProps {
   token: string;
@@ -15,6 +16,7 @@ interface OrdersProps {
 const Orders = ({ token }: OrdersProps) => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const fetchOrders = async () => {
     setLoading(true);
     try {
@@ -24,7 +26,7 @@ const Orders = ({ token }: OrdersProps) => {
         token: token,
       });
 
-      const pendingOrders = response.filter(order => !order.status);
+      const pendingOrders = response.filter((order) => !order.status);
 
       setOrders(pendingOrders);
       setLoading(false);
@@ -57,7 +59,12 @@ const Orders = ({ token }: OrdersProps) => {
             <h1 className="text-2xl font-bold sm:text-3xl">Pedidos</h1>
             <p className="mt-1 text-sm sm:text-base">Gerencie os pedidos da cozinha</p>
           </div>
-          <Button size={'default'} variant={'default'} className="mt-4 md:mt-0" onClick={fetchOrders}>
+          <Button
+            size={'default'}
+            variant={'default'}
+            className="mt-4 md:mt-0"
+            onClick={fetchOrders}
+          >
             <RefreshCcw className="h-5 w-5" />
           </Button>
         </div>
@@ -107,13 +114,26 @@ const Orders = ({ token }: OrdersProps) => {
                       {formatPriceToBRL(calculateOrderTotal(order))}
                     </p>
                   </div>
-                  <Button className="flex w-full flex-row xl:w-auto" size={'sm'}>
+                  <Button
+                    className="flex w-full flex-row xl:w-auto"
+                    size={'sm'}
+                    onClick={() => setSelectedOrder(order.id)}
+                  >
                     <Eye /> Detalhes
                   </Button>
                 </div>
               </CardContent>
             </Card>
           ))}
+
+          <OrderModal
+            orderId={selectedOrder}
+            onClose={async () => {
+              setSelectedOrder(null);
+              await fetchOrders();
+            }}
+            token={token}
+          />
         </div>
       )}
     </>
