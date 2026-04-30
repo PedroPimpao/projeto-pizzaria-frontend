@@ -34,7 +34,7 @@ const Categories = async () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className='text-gray-200 text-sm'>ID: {category.id}</p>
+                <p className='text-gray-400 text-sm'>ID: {category.id}</p>
               </CardContent>
             </Card>
           ))}
