@@ -10,23 +10,24 @@ import { formatPriceToBRL } from '@/lib/format';
 import { OrderModal } from './order-modal';
 import PageTitle from '../pageTitle';
 
-interface OrdersProps {
+interface PastOrdersProps {
   token: string;
 }
 
-const Orders = ({ token }: OrdersProps) => {
+const PastOrders = ({ token }: PastOrdersProps) => {
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await apiClient<Order[]>('/orders?draft=false', {
+      const response = await apiClient<Order[]>('/orders/past?draft=false&status=true', {
         method: 'GET',
         cache: 'no-store',
         token: token,
       });
-      const pendingOrders = response.filter((order) => !order.status);
+
+      const pendingOrders = response.filter((order) => order.status);
 
       setOrders(pendingOrders);
       setLoading(false);
@@ -54,7 +55,7 @@ const Orders = ({ token }: OrdersProps) => {
     <>
       <div className="mb-6 space-y-4 sm:space-y-6">
         <div className="flex flex-col justify-between sm:flex-row sm:items-center">
-          <PageTitle title="Pedidos" subtitle="Gerencie os pedidos da cozinha" />
+          <PageTitle title="Histórico de Pedidos" subtitle="" />
           <Button
             size={'default'}
             variant={'default'}
@@ -136,4 +137,4 @@ const Orders = ({ token }: OrdersProps) => {
   );
 };
 
-export { Orders };
+export { PastOrders };

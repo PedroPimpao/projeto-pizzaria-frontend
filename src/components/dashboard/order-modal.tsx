@@ -30,15 +30,14 @@ const OrderModal = ({ orderId, onClose, token }: OrderModalProps) => {
       setOrder(null);
       return;
     }
-
     try {
       setLoading(true);
       const response = await apiClient<Order>(`/order/detail?order_id=${orderId}`, {
         method: 'GET',
         token: token,
       });
-      console.log(response);
       setLoading(false);
+      console.log(response);
       setOrder(response);
     } catch (error) {
       setLoading(false);
@@ -100,7 +99,7 @@ const OrderModal = ({ orderId, onClose, token }: OrderModalProps) => {
               <div>
                 <p className="mb-1 text-sm text-gray-400">Status</p>
                 <span className="inline-block rounded-full bg-orange-500/20 px-3 py-1 text-xs font-medium text-nowrap text-orange-500">
-                  Em produção
+                  {order.status ? 'Pronto' : 'Em produção'}
                 </span>
               </div>
             </div>
@@ -153,22 +152,24 @@ const OrderModal = ({ orderId, onClose, token }: OrderModalProps) => {
           </div>
         ) : null}
 
-        <DialogFooter className="border-app-border flex flex-row gap-3 border-t bg-transparent sm:gap-3">
-          <Button
-            variant="outline"
-            onClick={() => onClose()}
-            className="border-app-border flex-1 bg-transparent text-white hover:bg-transparent hover:text-white"
-          >
-            Fechar
-          </Button>
-          <Button
-            className="bg-brand-primary hover:bg-brand-primary/90 flex-1 font-semibold text-white"
-            disabled={loading}
-            onClick={handleFinishOrder}
-          >
-            Finalizar pedido
-          </Button>
-        </DialogFooter>
+        {!(order?.status) && (
+          <DialogFooter className="border-app-border flex flex-row gap-3 border-t bg-transparent sm:gap-3">
+            <Button
+              variant="outline"
+              onClick={() => onClose()}
+              className="border-app-border flex-1 bg-transparent text-white hover:bg-transparent hover:text-white"
+            >
+              Fechar
+            </Button>
+            <Button
+              className="bg-brand-primary hover:bg-brand-primary/90 flex-1 font-semibold text-white"
+              disabled={loading}
+              onClick={handleFinishOrder}
+            >
+              Finalizar pedido
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );
