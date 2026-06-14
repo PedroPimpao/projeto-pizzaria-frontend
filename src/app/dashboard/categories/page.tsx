@@ -11,7 +11,6 @@ const Categories = async () => {
   const categories = await apiClient<Category[]>('/category', {
     token: token!,
   });
-  console.log(categories);
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col justify-between sm:flex-row sm:items-center">

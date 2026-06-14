@@ -31,7 +31,6 @@ const Orders = ({ token }: OrdersProps) => {
 
       setOrders(pendingOrders);
       setLoading(false);
-      console.log(pendingOrders);
     } catch (error) {
       setLoading(false);
       console.log(error);

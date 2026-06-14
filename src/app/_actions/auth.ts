@@ -23,7 +23,6 @@ export const registerAction = async (prevState: State, formData: FormData) => {
       method: 'POST',
       body: JSON.stringify(data),
     });
-    console.log(user);
     return { success: true, error: '', redirectTo: '/login' };
   } catch (error) {
     if (error instanceof Error) {
@@ -46,7 +45,6 @@ export const loginAction = async (prevState: State, formData: FormData) => {
     });
 
     await setToken(response.token)
-    console.log(response);
     return { success: true, error: '', redirectTo: '/dashboard' };
   } catch (error) {
     if (error instanceof Error) {

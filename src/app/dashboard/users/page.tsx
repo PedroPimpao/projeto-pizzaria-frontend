@@ -26,9 +26,32 @@ const UsersPage = async () => {
 
       <div className="flex grid-cols-2 flex-col gap-3 md:grid xl:grid-cols-3">
         {users
-          .filter((user) => user.id !== myUser.id && user.role !== 'USER_ROOT')
+          .filter(
+            (user) => user.id !== myUser.id && user.role !== 'USER_ROOT' && user.role !== 'EXTERNAL'
+          )
           .map((user) => (
-            <UserCard key={user.id} userId={user.id} username={user.name} email={user.email} role={user.role}/>
+            <UserCard
+              key={user.id}
+              userId={user.id}
+              username={user.name}
+              email={user.email}
+              role={user.role}
+            />
+          ))}
+      </div>
+
+      <div className="text-sm sm:text-base text-gray-400 m-4">Fora do quadro de funcionarios</div>
+      <div className="flex grid-cols-2 flex-col gap-3 md:grid xl:grid-cols-3">
+        {users
+          .filter((user) => user.id !== myUser.id && user.role === 'EXTERNAL')
+          .map((user) => (
+            <UserCard
+              key={user.id}
+              userId={user.id}
+              username={user.name}
+              email={user.email}
+              role={user.role}
+            />
           ))}
       </div>
     </>
