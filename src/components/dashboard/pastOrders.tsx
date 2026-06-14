@@ -21,7 +21,7 @@ const PastOrders = ({ token }: PastOrdersProps) => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await apiClient<Order[]>('/orders/past?draft=false&status=true', {
+      const response = await apiClient<Order[]>('/orders?draft=false&status=true', {
         method: 'GET',
         cache: 'no-store',
         token: token,

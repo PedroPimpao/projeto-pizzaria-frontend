@@ -21,7 +21,7 @@ const Orders = ({ token }: OrdersProps) => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await apiClient<Order[]>('/orders?draft=false', {
+      const response = await apiClient<Order[]>('/orders?draft=false&status=false', {
         method: 'GET',
         cache: 'no-store',
         token: token,
