@@ -10,7 +10,6 @@ interface ChangeRoleProps {
 }
 
 export const changeRole = async ({ userId, role }: ChangeRoleProps) => {
-
   try {
     const token = await getToken();
     console.log(`Novo cargo selecionado: ${role}`);
@@ -23,7 +22,8 @@ export const changeRole = async ({ userId, role }: ChangeRoleProps) => {
       body: JSON.stringify(data),
       token: token!,
     });
+    return { success: true, error: '' };
   } catch (error) {
-    throw new Error('Erro ao atualizar cargo do usuário');
+    return { success: false, error: 'Erro ao atualizar cargo do usuário' };
   }
 };
