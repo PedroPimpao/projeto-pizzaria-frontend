@@ -56,7 +56,7 @@ export const requiredAdmin = async () => {
     redirect('/login');
   }
 
-  if (user?.role !== 'ADMIN') {
+  if (user?.role !== 'ADMIN' && user?.role !== 'SUPER_ADMIN' && user?.role !== 'USER_ROOT') {
     redirect('/access-denied');
   }
 

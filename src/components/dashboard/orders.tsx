@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { formatPriceToBRL } from '@/lib/format';
 import { OrderModal } from './order-modal';
+import PageTitle from '../pageTitle';
 
 interface OrdersProps {
   token: string;
@@ -55,10 +56,7 @@ const Orders = ({ token }: OrdersProps) => {
     <>
       <div className="mb-6 space-y-4 sm:space-y-6">
         <div className="flex flex-col justify-between sm:flex-row sm:items-center">
-          <div>
-            <h1 className="text-2xl font-bold sm:text-3xl">Pedidos</h1>
-            <p className="mt-1 text-sm sm:text-base">Gerencie os pedidos da cozinha</p>
-          </div>
+          <PageTitle title="Pedidos" subtitle="Gerencie os pedidos da cozinha" />
           <Button
             size={'default'}
             variant={'default'}

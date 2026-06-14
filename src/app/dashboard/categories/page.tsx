@@ -1,4 +1,5 @@
 import CategoryForm from '@/components/dashboard/category-form';
+import PageTitle from '@/components/pageTitle';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiClient } from '@/lib/api';
 import { getToken } from '@/lib/auth';
@@ -14,14 +15,11 @@ const Categories = async () => {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col justify-between sm:flex-row sm:items-center">
-        <div>
-          <h1 className="text-2xl font-bold sm:text-3xl">Categorias</h1>
-          <p className="mt-1 text-sm sm:text-base">Organize suas categorias</p>
-        </div>
-        <CategoryForm/>
+        <PageTitle title="Categorias" subtitle="Organize suas categorias" />
+        <CategoryForm />
       </div>
       {categories.length !== 0 && (
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {categories.map((category) => (
             <Card
               key={category.id}
@@ -34,7 +32,7 @@ const Categories = async () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className='text-gray-400 text-sm'>ID: {category.id}</p>
+                <p className="text-sm text-gray-400">ID: {category.id}</p>
               </CardContent>
             </Card>
           ))}

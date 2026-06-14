@@ -7,6 +7,7 @@ import { ProductForm } from '@/components/dashboard/product-form';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import DeleteButton from '@/components/dashboard/delete-button';
+import PageTitle from '@/components/pageTitle';
 
 export default async function Products() {
   const token = await getToken();
@@ -32,11 +33,7 @@ export default async function Products() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-white sm:text-3xl">Produtos</h1>
-          <p className="mt-1 text-sm sm:text-base">Gerencie seus produtos</p>
-        </div>
-
+        <PageTitle title="Produtos" subtitle="Gerencie seus produtos" />
         <ProductForm categories={categories} />
       </div>
 
