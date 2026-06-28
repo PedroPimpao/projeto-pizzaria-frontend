@@ -1,18 +1,19 @@
 'use client';
 
-import { Button } from '../ui/button';
-import { Card, CardHeader, CardContent } from '../ui/card';
+import { recoverAccessAction, requestResetPasswordAction } from '@/app/_actions/auth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
+import { Card, CardContent, CardHeader } from '../ui/card';
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from '../ui/field';
 import { Input } from '../ui/input';
-import { useActionState, useEffect } from 'react';
-import { loginAction } from '@/app/_actions/auth';
-import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
 import Logo from '../logo';
-import Link from 'next/link';
 
-const LoginForm = () => {
-  const [state, formAction, isPending] = useActionState(loginAction, null);
+export const RecoverAccessForm = () => {
+  const [state, formAction, isPending] = useActionState(recoverAccessAction, null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const userId = searchParams.get('userId');
   useEffect(() => {
     if (state?.success && state?.redirectTo) {
       router.replace(state.redirectTo);
@@ -26,56 +27,46 @@ const LoginForm = () => {
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">
+            <input type="hidden" name="userId" value={userId ?? ''} />
             <FieldSet>
               <FieldDescription className="text-center text-white">
-                Preencha os dados para entrar na sua conta
+                Defina sua nova senha
               </FieldDescription>
               <FieldGroup>
                 <Field>
-                  <FieldLabel>Email</FieldLabel>
+                  <FieldLabel>Nova senha</FieldLabel>
                   <Input
-                    type="text"
-                    id="email"
-                    name="email"
-                    placeholder="Digite seu email"
+                    type="password"
+                    id="newPassword"
+                    name="newPassword"
+                    placeholder="Senha..."
                     required
                     minLength={3}
                     className="bg-app-card border-app-border border text-white"
                   />
                 </Field>
                 <Field>
-                  <FieldLabel>Senha</FieldLabel>
+                  <FieldLabel>Confirme a nova senha</FieldLabel>
                   <Input
                     type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Digite sua senha"
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
+                    placeholder="Senha..."
                     required
                     minLength={3}
                     className="bg-app-card border-app-border border text-white"
                   />
-                  <Link href={'/forgot-password'}>
-                    <span>Esqueci minha senha</span>
-                  </Link>
                 </Field>
               </FieldGroup>
             </FieldSet>
             <Button className="w-full p-4" type="submit">
-              {isPending ? 'Entrando...' : 'Entrar'}
+              {isPending ? 'Confirmando...' : 'Confirmar'}
             </Button>
 
             {state?.error && <div className="text-sm text-red-400">{state.error}</div>}
           </form>
-          <div className="mt-4 w-full text-center">
-            <span className="font-extralight">Não tem uma conta?</span>{' '}
-            <span>
-              <Link href={'/register'}>Crie a sua</Link>
-            </span>
-          </div>
         </CardContent>
       </Card>
     </>
   );
 };
-
-export default LoginForm;

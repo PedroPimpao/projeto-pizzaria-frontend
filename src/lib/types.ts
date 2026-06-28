@@ -15,6 +15,19 @@ export interface AuthResponse {
   token: string;
 }
 
+export interface RequestResetResponse {
+  OTP: string
+  userId: string
+}
+
+export interface OTPCodeValidationResponse {
+  message: string
+}
+
+export interface RecoverAccessResponse {
+  message: string
+}
+
 export interface Category {
   id: string;
   name: string;
