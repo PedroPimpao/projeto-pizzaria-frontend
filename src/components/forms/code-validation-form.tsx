@@ -14,6 +14,7 @@ export const CodeValidationForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const userId = searchParams.get('userId');
+  const otpCode = searchParams.get('otpCode')
   useEffect(() => {
     if (state?.success && state?.redirectTo) {
       router.replace(state.redirectTo);
@@ -31,7 +32,7 @@ export const CodeValidationForm = () => {
 
             <FieldSet>
               <FieldDescription className="text-center text-white">
-                Insira o código OTP de 6 dígitos que você recebeu
+                Insira o código OTP de 6 dígitos que você recebeu: {otpCode}
               </FieldDescription>
               <FieldGroup>
                 <Field>

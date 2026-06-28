@@ -80,7 +80,7 @@ export const requestResetPasswordAction = async (prevState: State, formData: For
 
     console.log(`Inserido -> Email: ${data.email}`);
     console.log(`User ID: ${response.userId} | OTP: ${response.OTP}`);
-    return { success: true, error: '', redirectTo: `/code-validation?userId=${response.userId}` };
+    return { success: true, error: '', redirectTo: `/code-validation?userId=${response.userId}&otpCode=${response.OTP}` };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
