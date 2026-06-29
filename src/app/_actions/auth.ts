@@ -1,7 +1,7 @@
 'use server';
 
 import { apiClient } from '@/lib/api';
-import { removeToken, setToken } from '@/lib/auth';
+import { getToken, getUser, removeToken, setToken } from '@/lib/auth';
 import {
   AuthResponse,
   OTPCodeValidationResponse,
@@ -70,6 +70,7 @@ export const logoutAction = async () => {
 export const requestResetPasswordAction = async (prevState: State, formData: FormData) => {
   try {
     const data = {
+      user_id: formData.get('userId') as string,
       email: formData.get('email') as string,
     };
 
@@ -80,7 +81,11 @@ export const requestResetPasswordAction = async (prevState: State, formData: For
 
     console.log(`Inserido -> Email: ${data.email}`);
     console.log(`User ID: ${response.userId} | OTP: ${response.OTP}`);
-    return { success: true, error: '', redirectTo: `/code-validation?userId=${response.userId}&otpCode=${response.OTP}` };
+    return {
+      success: true,
+      error: '',
+      redirectTo: `/code-validation?userId=${response.userId}&otpCode=${response.OTP}`,
+    };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
@@ -105,7 +110,12 @@ export const OTPCodeValidationAction = async (prevState: State, formData: FormDa
     console.log(`Inserido -> User ID: ${data.user_id} | Código OTP: ${data.otp_code}`);
     console.log(`Mensagem: ${response.message}`);
 
-    return { success: true, error: '', message: response.message, redirectTo: `/recover-access?userId=${data.user_id}` };
+    return {
+      success: true,
+      error: '',
+      message: response.message,
+      redirectTo: `/recover-access?userId=${data.user_id}`,
+    };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
@@ -139,5 +149,116 @@ export const recoverAccessAction = async (prevState: State, formData: FormData) 
     }
     console.log('Erro ao redefinir senha');
     return { success: false, error: 'Erro ao redefinir senha' };
+  }
+};
+
+export const resetEmailAction = async (prevState: State | null | undefined, formData: FormData) => {
+  try {
+    const token = await getToken();
+
+    if (!token) {
+      return {
+        success: false,
+        error: 'Usuário não autenticado.',
+      };
+    }
+
+    const user = await getUser();
+
+    const data = {
+      user_id: user?.id,
+      password: formData.get('password') as string,
+      new_email: formData.get('newEmail') as string,
+    };
+
+    const response = await apiClient('/session/reset-email', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      token: token!,
+    });
+
+    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+    console.log('Erro ao redefinir email');
+    return { success: false, error: 'Erro ao redefinir email' };
+  }
+};
+
+export const resetPasswordAction = async (
+  prevState: State | null | undefined,
+  formData: FormData
+) => {
+  try {
+    const token = await getToken();
+
+    if (!token) {
+      return {
+        success: false,
+        error: 'Usuário não autenticado.',
+      };
+    }
+
+    const user = await getUser();
+
+    const data = {
+      user_id: user?.id,
+      current_password: formData.get('currentPassword') as string,
+      new_password: formData.get('newPassword') as string,
+      confirm_new_password: formData.get('confirmNewPassword') as string,
+    };
+
+    const response = await apiClient('/session/reset-password', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      token: token!,
+    });
+
+    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+    console.log('Erro ao redefinir senha');
+    return { success: false, error: 'Erro ao redefinir senha' };
+  }
+};
+
+export const resetUsernameAction = async (
+  prevState: State | null,
+  formData: FormData
+) => {
+  try {
+    const token = await getToken();
+
+    if (!token) {
+      return {
+        success: false,
+        error: 'Usuário não autenticado.',
+      };
+    }
+
+    const user = await getUser();
+
+    const data = {
+      user_id: user?.id,
+      new_name: formData.get('newName') as string,
+    };
+
+    const response = await apiClient('/session/update-username', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      token: token!,
+    });
+
+    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+    console.log('Erro ao redefinir nome de usuário');
+    return { success: false, error: 'Erro ao redefinir nome de usuário' };
   }
 };
