@@ -1,9 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShieldX, LogOut } from 'lucide-react';
+import { ShieldX, LogOut, User } from 'lucide-react';
 import { logoutAction } from '../_actions/auth';
 import { getUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function AccessDenied() {
   const user = await getUser();
@@ -27,15 +28,21 @@ export default async function AccessDenied() {
           <p className="text-center text-sm text-gray-400">
             Se você acredita que isso é um erro, por favor, consulte o responsável pelo sistema.
           </p>
-          <form action={logoutAction} className="flex justify-center pt-2">
+          <form action={logoutAction} className="flex justify-center pt-2 gap-2">
             <Button
               type="submit"
               variant="destructive"
-              className="border-app-border w-full text-white"
+              className="border-app-border text-white flex-1"
             >
               <LogOut className="h-4 w-4" />
               Sair
             </Button>
+            <Link href={'/profile'} className='flex-1'>
+              <Button className='w-full'>
+                <User />
+                Perfil
+              </Button>
+            </Link>
           </form>
         </CardContent>
       </Card>

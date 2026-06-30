@@ -9,8 +9,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Field, FieldLabel, FieldSet } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
 import { KeyRound, Mail, Pencil, UserCog } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -51,12 +49,12 @@ const ProfileEditDialog = () => {
     }
 
     if (action === 'email') {
-      router.push('/reset-email');
+      router.push('/profile/reset-email');
       return;
     }
 
     if (action === 'password') {
-      router.push('/reset-password');
+      router.push('/profile/reset-password');
     }
   };
 
@@ -112,19 +110,6 @@ const ProfileEditDialog = () => {
               Informe o novo nome para o perfil.
             </DialogDescription>
           </DialogHeader>
-
-          {/* <form className="space-y-4">
-            <FieldSet>
-              <Field>
-                <FieldLabel htmlFor="newName">Novo nome</FieldLabel>
-                <Input id="newName" name="newName" placeholder="Novo nome" required />
-              </Field>
-            </FieldSet>
-
-            <Button type="submit" className="w-full">
-              Salvar
-            </Button>
-          </form> */}
           <ResetUsernameForm/>
         </DialogContent>
       </Dialog>

@@ -5,7 +5,6 @@ import { Category, Product } from '@/lib/types';
 import { Package } from 'lucide-react';
 import { ProductForm } from '@/components/dashboard/product-form';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import DeleteButton from '@/components/dashboard/delete-button';
 import PageTitle from '@/components/pageTitle';
 

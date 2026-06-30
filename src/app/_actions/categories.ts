@@ -36,9 +36,6 @@ export const createCategoryAction = async (formData: FormData) => {
 
 export const renameCategoryAction = async (formData: FormData, categoryId: string) => {
   const token = await getToken();
-  const categoryExistsData = {
-    category_id: categoryId
-  }
 
   const categoryExists = await apiClient<Category>(`/category?categoryId=${categoryId}`, {
     method: 'GET',

@@ -1,5 +1,4 @@
 import { Orders } from '@/components/dashboard/orders';
-import { PastOrders } from '@/components/dashboard/pastOrders';
 import { getToken } from '@/lib/auth';
 
 const Dashboard = async () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { recoverAccessAction, requestResetPasswordAction } from '@/app/_actions/auth';
+import { recoverAccessAction } from '@/app/_actions/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from '../ui/card';

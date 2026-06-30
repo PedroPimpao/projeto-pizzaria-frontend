@@ -1,5 +1,4 @@
 'use client';
-import { apiClient } from '@/lib/api';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import {

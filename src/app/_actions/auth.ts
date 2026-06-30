@@ -51,8 +51,16 @@ export const loginAction = async (prevState: State, formData: FormData) => {
       body: JSON.stringify(data),
     });
 
+    let redirectPage = '/profile';
+
+    const allowedRoles = ['ADMIN', 'SUPER_ADMIN', 'USER_ROOT'];
+
+    if (allowedRoles.includes(response.role)) {
+      redirectPage = '/dashboard';
+    }
+
     await setToken(response.token);
-    return { success: true, error: '', redirectTo: '/dashboard' };
+    return { success: true, error: '', redirectTo: `/${redirectPage}` };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
@@ -177,7 +185,7 @@ export const resetEmailAction = async (prevState: State | null | undefined, form
       token: token!,
     });
 
-    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+    return { success: true, error: '', redirectTo: '/profile' };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
@@ -216,7 +224,7 @@ export const resetPasswordAction = async (
       token: token!,
     });
 
-    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+    return { success: true, error: '', redirectTo: '/profile' };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };
@@ -226,10 +234,7 @@ export const resetPasswordAction = async (
   }
 };
 
-export const resetUsernameAction = async (
-  prevState: State | null,
-  formData: FormData
-) => {
+export const resetUsernameAction = async (prevState: State | null, formData: FormData) => {
   try {
     const token = await getToken();
 
@@ -253,7 +258,7 @@ export const resetUsernameAction = async (
       token: token!,
     });
 
-    return { success: true, error: '', redirectTo: '/dashboard/profile' };
+    return { success: true, error: '', redirectTo: '/profile' };
   } catch (error) {
     if (error instanceof Error) {
       return { success: false, error: error.message };

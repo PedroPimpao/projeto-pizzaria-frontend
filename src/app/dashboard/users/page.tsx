@@ -1,8 +1,7 @@
 import UserCard from '@/components/dashboard/user-card';
 import PageTitle from '@/components/pageTitle';
-import { Card } from '@/components/ui/card';
 import { apiClient } from '@/lib/api';
-import { getToken, getUser } from '@/lib/auth';
+import { getUser } from '@/lib/auth';
 import { User } from '@/lib/types';
 import { redirect } from 'next/navigation';
 

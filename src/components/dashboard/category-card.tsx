@@ -1,7 +1,5 @@
-import { Edit, Tags } from 'lucide-react';
+import { Tags } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import CategoryForm from './category-form';
 import RenameCategoryForm from './rename-category-form';
 
 interface CategoryCardProps {

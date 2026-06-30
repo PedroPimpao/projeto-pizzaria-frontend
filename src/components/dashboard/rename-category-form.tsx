@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -11,7 +10,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Button } from '../ui/button';
-import { Edit, Plus } from 'lucide-react';
+import { Edit } from 'lucide-react';
 import { Field, FieldLabel, FieldSet } from '../ui/field';
 import { Input } from '../ui/input';
 import { renameCategoryAction } from '@/app/_actions/categories';

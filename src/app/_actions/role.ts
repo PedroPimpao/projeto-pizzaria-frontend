@@ -2,7 +2,6 @@
 
 import { apiClient } from '@/lib/api';
 import { getToken } from '@/lib/auth';
-import { User } from '@/lib/types';
 
 interface ChangeRoleProps {
   userId: string;
